@@ -38,6 +38,8 @@ import { CorrentlyComponent } from './corrently/corrently.component';
 import { CorrentlyChartComponent } from './corrently/modal/chart.component';
 import { HeatingElementModalComponent } from './heatingelement/modal/modal.component';
 import { HeatingElementComponent } from './heatingelement/heatingelement.component';
+import { SinglethresholdComponent } from './singlethreshold/singlethreshold.component';
+import { SinglethresholdModalComponent } from './singlethreshold/modal/modal.component';
 
 @NgModule({
   imports: [
@@ -61,6 +63,7 @@ import { HeatingElementComponent } from './heatingelement/heatingelement.compone
     EvcsPopoverComponent,
     ChpsocModalComponent,
     FixDigitalOutputModalComponent,
+    SinglethresholdModalComponent,
   ],
   declarations: [
     AwattarComponent,
@@ -69,6 +72,8 @@ import { HeatingElementComponent } from './heatingelement/heatingelement.compone
     CorrentlyComponent,
     CorrentlyModalComponent,
     CorrentlyChartComponent,
+    SinglethresholdComponent,
+    SinglethresholdModalComponent,
     LiveComponent,
     FixDigitalOutputModalComponent,
     ChannelthresholdComponent,
