@@ -25,6 +25,8 @@
 
 ion-label {
     font-family: Arial, Helvetica, sans-serif;
+    //for darkmode only
+    color: #fff;
 }
 
 ion-item.noPadding {
@@ -95,4 +97,48 @@ ion-toast.container {
  */
 formly-input-section {
     flex: auto; // use all remaining space in a row
+}
+
+// darkmode
+ion-list {
+    --ion-background-color: #444444;
+    --ion-text-color: #fff;
+}
+
+ion-card-title {
+    color: #fff;
+}
+
+ion-content {
+    --ion-background-color: #444444;
+    --ion-text-color: #fff;
+}
+
+ion-item {
+    --ion-text-color: #fff;
+    --ion-background-color: #444444;
+}
+
+ion-item-group {
+    color: #fff;
+}
+
+ion-card-subtitle {
+    color: rgba(255, 255, 255, 0.74);
+}
+
+td {
+    color: #fff;
+}
+
+h2 {
+    color: #fff;
+}
+
+p {
+    color: #fff;
+}
+
+a {
+    color: #fff;
 }
