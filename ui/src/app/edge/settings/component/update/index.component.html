@@ -12,7 +12,7 @@
     </ion-item-group>
     <ion-item lines="none" *ngFor="let item of category.filteredComponents" [routerLink]=item.id>
       <ion-label style="cursor: pointer" class="ion-text-wrap">
-        <ion-text color="primary">
+        <ion-text>
           <h3>{{ item.alias }}
             <span *ngIf="item.id != item.alias"> ({{ item.id }})</span>
             <small *ngIf="!item.isEnabled"> (Komponente ist inaktiv!)</small>
