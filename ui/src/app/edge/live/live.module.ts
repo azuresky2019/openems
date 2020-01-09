@@ -60,6 +60,7 @@ import { SinglethresholdModalComponent } from './singlethreshold/modal/modal.com
     AutarchyModalComponent,
     SelfconsumptionModalComponent,
     HeatingElementModalComponent,
+    SinglethresholdModalComponent,
     EvcsPopoverComponent,
     ChpsocModalComponent,
     FixDigitalOutputModalComponent,
@@ -77,6 +78,7 @@ import { SinglethresholdModalComponent } from './singlethreshold/modal/modal.com
     LiveComponent,
     FixDigitalOutputModalComponent,
     ChannelthresholdComponent,
+    SinglethresholdComponent,
     EvcsComponent,
     ModbusApiComponent,
     StorageComponent,
@@ -102,6 +104,7 @@ import { SinglethresholdModalComponent } from './singlethreshold/modal/modal.com
     SelfConsumptionComponent,
     SelfconsumptionModalComponent,
     HeatingElementModalComponent,
+    SinglethresholdModalComponent,
     EvcsPopoverComponent,
     OfflineComponent
   ]

@@ -24,7 +24,7 @@ export enum WidgetFactory {
     'Controller.Io.FixDigitalOutput',
     'Controller.CHP.SoC',
     'Controller.HeatingElement',
-    'Controller.ChannelSingleThreshold'
+    'Controller.IO.ChannelSingleThreshold'
 }
 
 export class Widget {
