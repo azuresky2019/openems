@@ -1,6 +1,6 @@
 {
-  "name": "Open Energy Management System",
-  "short_name": "OpenEMS",
+  "name": "FENECON Energy Management System - Dark Mode",
+  "short_name": "FEMS DARK",
   "icons": [
     {
       "src": "android-chrome-192x192.png",
@@ -16,5 +16,5 @@
   "theme_color": "#ffffff",
   "background_color": "#ffffff",
   "display": "standalone",
-  "start_url": "/m/index"
+  "start_url": "/m-dev/index"
 }

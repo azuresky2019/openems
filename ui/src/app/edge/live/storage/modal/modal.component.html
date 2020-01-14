@@ -23,12 +23,7 @@
                             {{ sum.soc| unitvalue:'%' }}
                         </td>
                     </tr>
-                    <tr *ngIf="currentData[component.id + '/Capacity'] != null">
-                        <td style="width:65%" translate>General.Capacity</td>
-                        <td style="width:35%" class="align_right">
-                            {{ currentData[component.id + '/Capacity'] | unitvalue:'Wh' }}
-                        </td>
-                    </tr>
+
                     <!-- Charge/Discharge -->
                     <tr>
                         <td style="width:65%" translate>General.ChargePower</td>
@@ -187,12 +182,6 @@
                         <td style="width: 65%" translate>General.Soc</td>
                         <td style="width:35%" class="align_right">
                             {{ sum.soc | unitvalue:'%' }}
-                        </td>
-                    </tr>
-                    <tr *ngIf="sum.capacity != null">
-                        <td style="width:65%" translate>General.Capacity</td>
-                        <td style="width:35%" class="align_right">
-                            {{ sum.capacity | unitvalue:'Wh' }}
                         </td>
                     </tr>
                     <tr>
@@ -356,12 +345,6 @@
                                 <td style="width: 65%" translate>General.Soc</td>
                                 <td style="width: 35%" class="align_right">
                                     {{ currentData[component.id + '/Soc'] | unitvalue:'%' }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width:65%" translate>General.Capacity</td>
-                                <td style="width:35%" class="align_right">
-                                    {{ currentData[component.id + '/Capacity'] | unitvalue:'Wh' }}
                                 </td>
                             </tr>
                         </table>

@@ -37,8 +37,7 @@ export class CurrentData {
         maxApparentPower: null,
         effectivePower: null,
         effectiveChargePower: null,
-        effectiveDischargePower: null,
-        capacity: null,
+        effectiveDischargePower: null
       }, production: {
         hasDC: false,
         powerRatio: null,
@@ -91,12 +90,12 @@ export class CurrentData {
       }
       result.grid.gridMode = c['_sum/GridMode'];
       if (gridActivePower > 0) {
-        result.grid.sellActivePower = 0;
+        result.grid.sellActivePower = null;
         result.grid.buyActivePower = gridActivePower;
         result.grid.powerRatio = Utils.orElse(Utils.divideSafely(gridActivePower, result.grid.maxBuyActivePower), 0);
       } else {
         result.grid.sellActivePower = gridActivePower * -1;
-        result.grid.buyActivePower = 0;
+        result.grid.buyActivePower = null;
         result.grid.powerRatio = Utils.orElse(Utils.divideSafely(gridActivePower, result.grid.maxSellActivePower), 0);
       }
     }
@@ -129,7 +128,6 @@ export class CurrentData {
       result.storage.activePowerL2 = c['_sum/EssActivePowerL2'];
       result.storage.activePowerL3 = c['_sum/EssActivePowerL3'];
       result.storage.maxApparentPower = c['_sum/EssMaxApparentPower'];
-      result.storage.capacity = c['_sum/EssCapacity'];
       const essActivePower: number = c['_sum/EssActivePower'];
 
       if (!result.storage.maxApparentPower) {

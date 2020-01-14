@@ -71,6 +71,7 @@ export class ConsumptionTotalChartComponent extends AbstractHistoryChart impleme
                             }
                         })
                     }
+
                     // convert datasets
                     let datasets = [];
 

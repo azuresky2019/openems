@@ -1,5 +1,7 @@
 export const TRANSLATION = {
     General: {
+        Ok: "Aceptar",
+        Cancel: "Aborto",
         Mode: "Modo",
         Automatic: "Automático",
         State: "Estado",
@@ -54,7 +56,7 @@ export const TRANSLATION = {
     },
     Menu: {
         Index: "Visión general",
-        AboutUI: "Sobre OpenEMS-UI",
+        AboutUI: "Sobre FEMS-UI",
         GeneralSettings: 'Configuración general',
         EdgeSettings: 'Configuración FEMS',
         Menu: 'Menú',
@@ -251,14 +253,16 @@ export const TRANSLATION = {
         }
     },
     About: {
-        UI: "Interfaz de usario para OpenEMS",
+        UI: "Interfaz de usario para FEMS y OpenEMS",
         Developed: "Esta interfaz de usario es desarrollada por FENECON como software de código abierto.",
         Fenecon: "Acerca de FENECON",
         OpenEMS: "Acerca de OpenEMS",
         CurrentDevelopments: "Desarrollos actuales",
         Build: "Esta compilación",
-        Contact: "Para preguntas y sugerencias sobre el sistema, por favor contacte a nuestro OpenEMS-Team en <a href=\"mailto:{{value}}\">{{value}}</a>.",
-        Language: "Seleccionar idioma:"
+        Patchnotes: "Cambios en la supervisión de esta compilación",
+        Contact: "Para preguntas y sugerencias sobre el sistema, por favor contacte a nuestro FEMS-Team en <a href=\"mailto:{{value}}\">{{value}}</a>.",
+        Language: "Seleccionar idioma:",
+        FAQ: "Preguntas frecuentes (FAQ)"
     },
     Notifications: {
         Failed: "Error al configurar la conexión.",

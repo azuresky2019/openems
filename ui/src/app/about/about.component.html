@@ -3,9 +3,9 @@
     <ion-col size="12" size-md="8">
       <ion-card>
         <ion-item lines="full" color="light">
-          <ion-icon slot="start" size="large" color="primary" name="information-circle-outline"></ion-icon>
+          <ion-icon slot="start" size="large" name="information-circle-outline"></ion-icon>
           <ion-label class="ion-text-wrap">
-            OpenEMS UI
+            FEMS
             <ion-card-subtitle translate>About.UI</ion-card-subtitle>
           </ion-label>
         </ion-item>
@@ -14,17 +14,24 @@
           <p translate>About.Developed</p>
           <ul>
             <li>
+              <a target="_blank" href="https://fenecon.de/page/faq-bestandskunden" translate>About.FAQ</a>
+            </li>
+            <li>
               <a target="_blank" href="https://openems.io" translate>About.OpenEMS</a>
             </li>
             <li>
-              <!-- <a target="_blank" href="https://github.com/OpenEMS/openems/releases/tag/2020.1.0">
-                <span translate>About.Build</span>: 2020.1.0 (2020-01-02)</a> -->
-              <a target="_blank" href="https://github.com/OpenEMS/openems/tree/develop">
-                <span translate>About.Build</span>: 2020.2.0-SNAPSHOT</a>
+              <a target="_blank" href="https://github.com/fenecon/openems/releases/tag/2020.1.1">
+                <span translate>About.Build</span>: 2020.1.1 (2020-01-07)</a>
+            </li>
+            <li>
+              <a target="_blank"
+                href="https://www1.fenecon.de/tag/fems-changelog/">
+                <span translate>About.Patchnotes</span>
+              </a>
             </li>
           </ul>
           <p>
-            <span [innerHTML]="'About.Contact' | translate:{value: 'info@openems.io'}"></span>
+            <span [innerHTML]="'About.Contact' | translate:{value: 'service@fenecon.de'}"></span>
           </p>
         </ion-card-content>
       </ion-card>

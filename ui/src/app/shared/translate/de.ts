@@ -1,5 +1,7 @@
 export const TRANSLATION = {
     General: {
+        Ok: "Ok",
+        Cancel: "Abbrechen",
         Mode: "Modus",
         Automatic: "Automatisch",
         State: "Zustand",
@@ -66,11 +68,10 @@ export const TRANSLATION = {
             December: "Dezember"
         },
         ReportValue: "Fehlerhafte Daten melden",
-        Capacity: "Kapazität"
     },
     Menu: {
         Index: "Übersicht",
-        AboutUI: "Über OpenEMS UI",
+        AboutUI: "Über FEMS",
         GeneralSettings: 'Allgemeine Einstellungen',
         EdgeSettings: 'FEMS Einstellungen',
         Menu: 'Menü',
@@ -82,7 +83,7 @@ export const TRANSLATION = {
         ConnectionSuccessful: "Verbindung zu {{value}} hergestellt.", // value = name of websocket
         ConnectionFailed: "Verbindung zu {{value}} getrennt.", // value = name of websocket
         ToEnergymonitor: "Zum Energiemonitor...",
-        IsOffline: "OpenEMS ist offline!"
+        IsOffline: "FEMS ist offline!"
     },
     Edge: {
         Index: {
@@ -270,13 +271,15 @@ export const TRANSLATION = {
         }
     },
     About: {
-        UI: "Benutzeroberfläche für OpenEMS",
+        UI: "Benutzeroberfläche für FEMS",
         Developed: "Diese Benutzeroberfläche wird als Open-Source-Software entwickelt.",
         OpenEMS: "Mehr zu OpenEMS",
         CurrentDevelopments: "Aktuelle Entwicklungen",
         Build: "Dieser Build",
+        Patchnotes: "Änderungen im Monitoring zu diesem Build",
         Contact: "Für Rückfragen und Anregungen zum System, wenden Sie sich bitte an unser Team unter <a href=\"mailto:{{value}}\">{{value}}</a>.",
-        Language: "Sprache wählen:"
+        Language: "Sprache wählen:",
+        FAQ: "Häufig gestellte Fragen (FAQ)"
     },
     Notifications: {
         Failed: "Verbindungsaufbau fehlgeschlagen.",

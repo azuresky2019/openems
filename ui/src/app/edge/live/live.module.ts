@@ -30,6 +30,16 @@ import { ChpsocModalComponent } from './chpsoc/chpsoc-modal/modal.page';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { OfflineComponent } from './offline/offline.component';
+import { AwattarComponent } from './awattar/awattar.component';
+import { AwattarModalComponent } from './awattar/modal/modal.component';
+import { AwattarChartComponent } from './awattar/modal/chart.component';
+import { CorrentlyModalComponent } from './corrently/modal/modal.component';
+import { CorrentlyComponent } from './corrently/corrently.component';
+import { CorrentlyChartComponent } from './corrently/modal/chart.component';
+import { HeatingElementModalComponent } from './heatingelement/modal/modal.component';
+import { HeatingElementComponent } from './heatingelement/heatingelement.component';
+import { SinglethresholdComponent } from './singlethreshold/singlethreshold.component';
+import { SinglethresholdModalComponent } from './singlethreshold/modal/modal.component';
 
 @NgModule({
   imports: [
@@ -39,6 +49,8 @@ import { OfflineComponent } from './offline/offline.component';
     BrowserAnimationsModule
   ],
   entryComponents: [
+    AwattarModalComponent,
+    CorrentlyModalComponent,
     StorageModalComponent,
     GridModalComponent,
     ConsumptionModalComponent,
@@ -47,14 +59,26 @@ import { OfflineComponent } from './offline/offline.component';
     ModalComponentEvcsCluster,
     AutarchyModalComponent,
     SelfconsumptionModalComponent,
+    HeatingElementModalComponent,
+    SinglethresholdModalComponent,
     EvcsPopoverComponent,
     ChpsocModalComponent,
     FixDigitalOutputModalComponent,
+    SinglethresholdModalComponent,
   ],
   declarations: [
+    AwattarComponent,
+    AwattarModalComponent,
+    AwattarChartComponent,
+    CorrentlyComponent,
+    CorrentlyModalComponent,
+    CorrentlyChartComponent,
+    SinglethresholdComponent,
+    SinglethresholdModalComponent,
     LiveComponent,
     FixDigitalOutputModalComponent,
     ChannelthresholdComponent,
+    SinglethresholdComponent,
     EvcsComponent,
     ModbusApiComponent,
     StorageComponent,
@@ -67,6 +91,7 @@ import { OfflineComponent } from './offline/offline.component';
     StorageModalComponent,
     GridModalComponent,
     ChpSocComponent,
+    HeatingElementComponent,
     ConsumptionModalComponent,
     ProductionModalComponent,
     EvcsClusterComponent,
@@ -78,6 +103,8 @@ import { OfflineComponent } from './offline/offline.component';
     AutarchyModalComponent,
     SelfConsumptionComponent,
     SelfconsumptionModalComponent,
+    HeatingElementModalComponent,
+    SinglethresholdModalComponent,
     EvcsPopoverComponent,
     OfflineComponent
   ]

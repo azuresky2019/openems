@@ -1,5 +1,5 @@
-<svg:path [attr.d]="outlinePath" fill="#f4f4f4" stroke="LightGray"></svg:path>
-<svg:path *ngIf="isEnabled" [attr.d]="valuePath" [attr.fill]="color" stroke="LightGray"></svg:path>
+<svg:path [attr.d]="outlinePath" fill="#222" stroke="#222"></svg:path>
+<svg:path *ngIf="isEnabled" [attr.d]="valuePath" [attr.fill]="color" stroke="#222"></svg:path>
 <svg:g *ngIf="isEnabled && energyFlow">
     <svg:defs>
         <svg:linearGradient [attr.id]="sectionId" [attr.x1]="energyFlow.gradient.x1" [attr.y1]="energyFlow.gradient.y1"
@@ -9,12 +9,12 @@
         </svg:linearGradient>
     </svg:defs>
     <svg:polygon [attr.points]="energyFlow.points" attr.fill="url({{ url }}#{{ sectionId }})" />
-    <svg:polygon [@Consumption]="stateName" [attr.points]="energyFlow.animationPoints" style="fill:white" />
+    <svg:polygon [@Consumption]="stateName" [attr.points]="energyFlow.animationPoints" style="fill:#444444" />
 </svg:g>
 <svg:g *ngIf="isEnabled && squarePosition && square"
     attr.transform="translate({{squarePosition.x}},{{squarePosition.y}})">
     <svg:text [attr.x]="square.valueText.x" [attr.y]="square.valueText.y" [attr.text-anchor]="square.valueText.anchor"
-        font-family="sans-serif" font-size="square.valueText.fontsize" fill="grey">
+        font-family="sans-serif" font-size="square.valueText.fontsize" fill="#fff">
         <ng-container *ngIf="valueText; else no_text">{{valueText}}</ng-container>
         <ng-template #no_text>-</ng-template>
     </svg:text>

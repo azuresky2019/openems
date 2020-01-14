@@ -93,7 +93,7 @@ for D in *; do
 
 				# Set default .classpath file
 				if [ -f "${D}/.classpath" ]; then
-					git checkout origin/develop ${D}/.classpath
+					git checkout origin/fems ${D}/.classpath
 				fi
 
 				# Verify bnd.bnd file

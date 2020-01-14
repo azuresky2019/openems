@@ -1,7 +1,7 @@
 {
   "name": "openems-ui",
-  "version": "2020.2.0-SNAPSHOT",
-  "author": "OpenEMS Association e.V.",
+  "version": "2020.1.1",
+  "author": "FENECON GmbH",
   "homepage": "http://openems.io",
   "scripts": {
     "ng": "ng",
@@ -79,7 +79,7 @@
     "typescript": "~3.5.3",
     "webpack": "^4.41.5"
   },
-  "description": "OpenEMS UI",
+  "description": "FEMS",
   "cordova": {
     "plugins": {
       "cordova-plugin-whitelist": {},

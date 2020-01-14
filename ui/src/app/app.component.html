@@ -47,7 +47,7 @@
     </ion-toolbar>
 
     <ng-container *ngIf="currentPage == 'IndexHistory'">
-      <ion-toolbar color="secondary">
+      <ion-toolbar color="medium">
         <ion-buttons class="ion-justify-content-center">
           <pickdate></pickdate>
         </ion-buttons>
@@ -75,8 +75,8 @@
           <ion-card>
             <ion-item>
               <ion-icon slot="start" name="close-circle"></ion-icon>
-              <ion-label class="ion-text-wrap">
-                <h2 translate [translateParams]="{value: 'OpenEMS'}">Index.ConnectionFailed</h2>
+              <ion-label text-wrap>
+                <h2 translate [translateParams]="{value: 'FEMS'}">Index.ConnectionFailed</h2>
                 <p color="light">{{ env.url }}</p>
               </ion-label>
             </ion-item>

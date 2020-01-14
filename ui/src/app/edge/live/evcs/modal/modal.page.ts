@@ -285,6 +285,7 @@ export class EvcsModalComponent implements OnInit {
       }).catch(reason => {
         this.service.toast(this.translate.instant('General.ChangeFailed') + '\n' + reason, 'danger');
         currentController.properties['defaultChargeMinPower'] = oldMinChargePower;
+        this.service.toast(this.translate.instant('General.ChangeFailed') + '\n' + reason, 'danger');
         console.warn(reason);
       });
     }
