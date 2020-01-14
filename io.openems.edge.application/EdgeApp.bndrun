@@ -18,6 +18,9 @@
 	bnd.identity;id='org.apache.felix.http.jetty',\
 	bnd.identity;id='org.apache.felix.webconsole',\
 	bnd.identity;id='io.openems.edge.application',\
+	bnd.identity;id='io.openems.edge.battery.bmw',\
+	bnd.identity;id='io.openems.edge.battery.bydcommercial',\
+	bnd.identity;id='io.openems.edge.battery.renaultzoe',\
 	bnd.identity;id='io.openems.edge.battery.soltaro',\
 	bnd.identity;id='io.openems.edge.bridge.mbus',\
 	bnd.identity;id='io.openems.edge.bridge.modbus',\
@@ -51,6 +54,7 @@
 	bnd.identity;id='io.openems.edge.controller.io.fixdigitaloutput',\
 	bnd.identity;id='io.openems.edge.controller.pvinverter.fixpowerlimit',\
 	bnd.identity;id='io.openems.edge.controller.pvinverter.selltogridlimit',\
+	bnd.identity;id='io.openems.edge.controller.renault.tmh',\
 	bnd.identity;id='io.openems.edge.controller.symmetric.balancing',\
 	bnd.identity;id='io.openems.edge.controller.symmetric.balancingschedule',\
 	bnd.identity;id='io.openems.edge.controller.symmetric.fixactivepower',\
@@ -68,6 +72,7 @@
 	bnd.identity;id='io.openems.edge.ess.kaco.blueplanet.gridsave50',\
 	bnd.identity;id='io.openems.edge.ess.mr.gridcon',\
 	bnd.identity;id='io.openems.edge.ess.refu',\
+	bnd.identity;id='io.openems.edge.ess.refu88k',\
 	bnd.identity;id='io.openems.edge.ess.sinexcel',\
 	bnd.identity;id='io.openems.edge.ess.sma',\
 	bnd.identity;id='io.openems.edge.ess.streetscooter',\
@@ -119,6 +124,9 @@
 	io.openems.common;version='[1.0.0,1.0.1)',\
 	io.openems.edge.application;version='[1.0.0,1.0.1)',\
 	io.openems.edge.battery.api;version='[1.0.0,1.0.1)',\
+	io.openems.edge.battery.bmw;version='[1.0.0,1.0.1)',\
+	io.openems.edge.battery.bydcommercial;version='[1.0.0,1.0.1)',\
+	io.openems.edge.battery.renaultzoe;version='[1.0.0,1.0.1)',\
 	io.openems.edge.battery.soltaro;version='[1.0.0,1.0.1)',\
 	io.openems.edge.bridge.mbus;version='[1.0.0,1.0.1)',\
 	io.openems.edge.bridge.modbus;version='[1.0.0,1.0.1)',\
@@ -153,6 +161,7 @@
 	io.openems.edge.controller.io.fixdigitaloutput;version='[1.0.0,1.0.1)',\
 	io.openems.edge.controller.pvinverter.fixpowerlimit;version='[1.0.0,1.0.1)',\
 	io.openems.edge.controller.pvinverter.selltogridlimit;version='[1.0.0,1.0.1)',\
+	io.openems.edge.controller.renault.tmh;version='[1.0.0,1.0.1)',\
 	io.openems.edge.controller.symmetric.balancing;version='[1.0.0,1.0.1)',\
 	io.openems.edge.controller.symmetric.balancingschedule;version='[1.0.0,1.0.1)',\
 	io.openems.edge.controller.symmetric.fixactivepower;version='[1.0.0,1.0.1)',\
@@ -171,6 +180,7 @@
 	io.openems.edge.ess.kaco.blueplanet.gridsave50;version='[1.0.0,1.0.1)',\
 	io.openems.edge.ess.mr.gridcon;version='[1.0.0,1.0.1)',\
 	io.openems.edge.ess.refu;version='[1.0.0,1.0.1)',\
+	io.openems.edge.ess.refu88k;version='[1.0.0,1.0.1)',\
 	io.openems.edge.ess.sinexcel;version='[1.0.0,1.0.1)',\
 	io.openems.edge.ess.sma;version='[1.0.0,1.0.1)',\
 	io.openems.edge.ess.streetscooter;version='[1.0.0,1.0.1)',\
