@@ -27,9 +27,9 @@ public class MyProcessImage implements ProcessImage {
 
 	private final Logger log = LoggerFactory.getLogger(MyProcessImage.class);
 
-	protected final RenaultModbusTcpApi parent;
+	protected final AbstractRenaultModbusApi parent;
 
-	protected MyProcessImage(RenaultModbusTcpApi parent) {
+	protected MyProcessImage(AbstractRenaultModbusApi parent) {
 		this.parent = parent;
 	}
 
@@ -105,7 +105,7 @@ public class MyProcessImage implements ProcessImage {
 			component = null;
 		} else {
 			try {
-				component = this.parent.componentManager.getComponent(record.getComponentId());
+				component = this.parent.getComponentManager().getComponent(record.getComponentId());
 			} catch (OpenemsNamedException e) {
 				this.log.warn("Unable to get Component [" + record.getComponentId() + "]: " + e.getMessage());
 				return result;

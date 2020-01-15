@@ -1,10 +1,10 @@
-package io.openems.edge.project.renault.tmhmodbus;
+package io.openems.edge.project.renault.tmhmodbus.tcp;
 
 import org.osgi.service.metatype.annotations.AttributeDefinition;
 import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 
 @ObjectClassDefinition( //
-		name = "Project Renault Controller TMH Modbus Slave", //
+		name = "Project Renault Controller TMH Modbus/TCP Slave", //
 		description = "Implements the TMH Modbus Slave Controller.")
 @interface Config {
 
@@ -29,5 +29,5 @@ import org.osgi.service.metatype.annotations.ObjectClassDefinition;
 	@AttributeDefinition(name = "Max concurrent connections", description = "Sets the maximum number of concurrent connections via Modbus.")
 	int maxConcurrentConnections() default RenaultModbusTcpApi.DEFAULT_MAX_CONCURRENT_CONNECTIONS;
 
-	String webconsole_configurationFactory_nameHint() default "Project Renault Controller TMH Modbus Slave [{id}]";
+	String webconsole_configurationFactory_nameHint() default "Project Renault Controller TMH Modbus/TCP Slave [{id}]";
 }

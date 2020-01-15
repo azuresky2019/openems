@@ -3,16 +3,11 @@ package io.openems.edge.project.renault.tmhmodbus;
 import java.util.TreeMap;
 
 import org.osgi.service.component.ComponentContext;
-import org.osgi.service.component.annotations.Activate;
-import org.osgi.service.component.annotations.Component;
-import org.osgi.service.component.annotations.ConfigurationPolicy;
-import org.osgi.service.component.annotations.Deactivate;
-import org.osgi.service.component.annotations.Reference;
-import org.osgi.service.metatype.annotations.Designate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.ghgande.j2mod.modbus.ModbusException;
+import com.ghgande.j2mod.modbus.slave.ModbusSlave;
 import com.ghgande.j2mod.modbus.slave.ModbusSlaveFactory;
 
 import io.openems.common.channel.Level;
@@ -32,18 +27,12 @@ import io.openems.edge.controller.api.Controller;
 import io.openems.edge.controller.api.common.ApiWorker;
 import io.openems.edge.controller.api.common.WritePojo;
 
-@Designate(ocd = Config.class, factory = true)
-@Component(//
-		name = "Project.Renault.Controller.Api.ModbusTcp", //
-		immediate = true, //
-		configurationPolicy = ConfigurationPolicy.REQUIRE)
-public class RenaultModbusTcpApi extends AbstractOpenemsComponent implements Controller, OpenemsComponent {
+public abstract class AbstractRenaultModbusApi extends AbstractOpenemsComponent
+		implements Controller, OpenemsComponent {
 
 	public static final int UNIT_ID = 1;
-	public static final int DEFAULT_PORT = 502;
-	public static final int DEFAULT_MAX_CONCURRENT_CONNECTIONS = 5;
 
-	private final Logger log = LoggerFactory.getLogger(RenaultModbusTcpApi.class);
+	private final Logger log = LoggerFactory.getLogger(AbstractRenaultModbusApi.class);
 
 	private final ApiWorker apiWorker = new ApiWorker();
 	private final MyProcessImage processImage;
@@ -53,12 +42,11 @@ public class RenaultModbusTcpApi extends AbstractOpenemsComponent implements Con
 	 */
 	protected final TreeMap<Integer, ModbusRecord> records = new TreeMap<>();
 
-	@Reference
-	protected ComponentManager componentManager;
+	protected abstract ComponentManager getComponentManager();
 
 	public enum ChannelId implements io.openems.edge.common.channel.ChannelId {
 		UNABLE_TO_START(Doc.of(Level.FAULT) //
-				.text("Unable to start Modbus/TCP-Api Server"));
+				.text("Unable to start Modbus-Api Server"));
 
 		private final Doc doc;
 
@@ -72,9 +60,7 @@ public class RenaultModbusTcpApi extends AbstractOpenemsComponent implements Con
 		}
 	}
 
-	private Config config = null;
-
-	public RenaultModbusTcpApi() {
+	public AbstractRenaultModbusApi() {
 		super(//
 				OpenemsComponent.ChannelId.values(), //
 				Controller.ChannelId.values(), //
@@ -84,12 +70,11 @@ public class RenaultModbusTcpApi extends AbstractOpenemsComponent implements Con
 		this.processImage = new MyProcessImage(this);
 	}
 
-	@Activate
-	void activate(ComponentContext context, Config config) throws ModbusException, OpenemsException {
-		super.activate(context, config.id(), config.alias(), config.enabled());
-		this.config = config;
+	protected void activate(ComponentContext context, String id, String alias, boolean enabled, int apiTimeout,
+			int technicalUnitId) throws ModbusException, OpenemsException {
+		super.activate(context, id, alias, enabled);
 
-		this.apiWorker.setTimeoutSeconds(config.apiTimeout());
+		this.apiWorker.setTimeoutSeconds(apiTimeout);
 
 		if (!this.isEnabled()) {
 			// abort if disabled
@@ -97,18 +82,20 @@ public class RenaultModbusTcpApi extends AbstractOpenemsComponent implements Con
 		}
 
 		// Initialize Modbus Records
-		this.initalizeModbusRecords(MyModbusSlaveDefinition.getModbusSlaveDefinition(config, this.componentManager));
+		this.initalizeModbusRecords(
+				MyModbusSlaveDefinition.getModbusSlaveDefinition(this.getComponentManager(), technicalUnitId));
 
 		// Start Modbus-Server
-		this.startApiWorker.activate(config.id());
+		this.startApiWorker.activate(id);
 	}
 
-	@Deactivate
 	protected void deactivate() {
 		this.startApiWorker.deactivate();
 		ModbusSlaveFactory.close();
 		super.deactivate();
 	}
+
+	protected abstract ModbusSlave createSlave() throws ModbusException;
 
 	private final AbstractWorker startApiWorker = new AbstractWorker() {
 
@@ -116,36 +103,32 @@ public class RenaultModbusTcpApi extends AbstractOpenemsComponent implements Con
 
 		private final Logger log = LoggerFactory.getLogger(AbstractWorker.class);
 
-		private com.ghgande.j2mod.modbus.slave.ModbusSlave slave = null;
+		private ModbusSlave slave = null;
 
 		@Override
 		protected void forever() {
-			int port = RenaultModbusTcpApi.this.config.port();
 			if (this.slave == null) {
 				try {
 					// start new server
-					this.slave = ModbusSlaveFactory.createTCPSlave(port,
-							RenaultModbusTcpApi.this.config.maxConcurrentConnections());
-					slave.addProcessImage(UNIT_ID, RenaultModbusTcpApi.this.processImage);
+					this.slave = AbstractRenaultModbusApi.this.createSlave();
+					slave.addProcessImage(UNIT_ID, AbstractRenaultModbusApi.this.processImage);
 					slave.open();
 
-					RenaultModbusTcpApi.this.logInfo(this.log, "Modbus/TCP Api started on port [" + port
-							+ "] with UnitId [" + RenaultModbusTcpApi.UNIT_ID + "].");
-					RenaultModbusTcpApi.this.channel(ChannelId.UNABLE_TO_START).setNextValue(false);
+					AbstractRenaultModbusApi.this.logInfo(this.log,
+							"Modbus-Api started with UnitId [" + AbstractRenaultModbusApi.UNIT_ID + "].");
+					AbstractRenaultModbusApi.this.channel(ChannelId.UNABLE_TO_START).setNextValue(false);
 				} catch (ModbusException e) {
 					ModbusSlaveFactory.close();
-					RenaultModbusTcpApi.this.logError(this.log,
-							"Unable to start Modbus/TCP Api on port [" + port + "]: " + e.getMessage());
-					RenaultModbusTcpApi.this.channel(ChannelId.UNABLE_TO_START).setNextValue(true);
+					AbstractRenaultModbusApi.this.logError(this.log, "Unable to start Modbus-Api: " + e.getMessage());
+					AbstractRenaultModbusApi.this.channel(ChannelId.UNABLE_TO_START).setNextValue(true);
 				}
 
 			} else {
 				// regular check for errors
 				String error = slave.getError();
 				if (error != null) {
-					RenaultModbusTcpApi.this.logError(this.log,
-							"Unable to start Modbus/TCP Api on port [" + port + "]: " + error);
-					RenaultModbusTcpApi.this.channel(ChannelId.UNABLE_TO_START).setNextValue(true);
+					AbstractRenaultModbusApi.this.logError(this.log, "Unable to start Modbus-Api: " + error);
+					AbstractRenaultModbusApi.this.channel(ChannelId.UNABLE_TO_START).setNextValue(true);
 					this.slave = null;
 					// stop server
 					ModbusSlaveFactory.close();
@@ -174,7 +157,7 @@ public class RenaultModbusTcpApi extends AbstractOpenemsComponent implements Con
 					ChannelAddress channelAddress = new ChannelAddress(r.getComponentId(), r.getChannelId().id());
 					Channel<?> readChannel;
 					try {
-						readChannel = this.componentManager.getChannel(channelAddress);
+						readChannel = this.getComponentManager().getChannel(channelAddress);
 					} catch (IllegalArgumentException | OpenemsNamedException e) {
 						this.logWarn(this.log, "Unable to get Channel [" + channelAddress + "]");
 						return;

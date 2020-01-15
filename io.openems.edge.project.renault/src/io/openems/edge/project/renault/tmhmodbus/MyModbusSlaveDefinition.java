@@ -15,19 +15,20 @@ public class MyModbusSlaveDefinition {
 	 * 
 	 * @return a map of modbus offset by record
 	 */
-	protected static TreeMap<Integer, ModbusRecord> getModbusSlaveDefinition(Config config, ComponentManager cm) {
+	protected static TreeMap<Integer, ModbusRecord> getModbusSlaveDefinition(ComponentManager cm, int technicalUnitId) {
 		return ModbusSlaveDefinitionBuilder.of() //
 
 				/*************
 				 * ESS-to-TMH
 				 * 
-				 * Modbus Function Code 04 "Read Input Registers" with address offset 30000. See http://www.simplymodbus.ca/FC04.htm
+				 * Modbus Function Code 04 "Read Input Registers" with address offset 30000. See
+				 * http://www.simplymodbus.ca/FC04.htm
 				 *************/
 
 				/*
 				 * Technical Unit Level Points
 				 */
-				.uint32(30000, "Technical Unit ID: Static Value", config.technicalUnitId()) //
+				.uint32(30000, "Technical Unit ID: Static Value", technicalUnitId) //
 
 				.uint16Supplier(30002, "System Status: System status of the TE, see Valid System States below", () -> {
 					Level state = cm.getComponent(OpenemsConstants.SUM_ID).getState().value().asEnum();
