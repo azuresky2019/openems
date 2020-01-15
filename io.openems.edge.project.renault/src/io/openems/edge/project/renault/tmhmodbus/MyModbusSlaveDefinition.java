@@ -21,8 +21,8 @@ public class MyModbusSlaveDefinition {
 				/*************
 				 * ESS-to-TMH
 				 * 
-				 * Modbus Function Code 04 "Read Input Registers" with address offset 30000. See
-				 * http://www.simplymodbus.ca/FC04.htm
+				 * Implemented as "input registers" with address offset 30000. See
+				 * https://en.wikipedia.org/wiki/Modbus#Modbus_object_types
 				 *************/
 
 				/*
@@ -35,8 +35,25 @@ public class MyModbusSlaveDefinition {
 					if (state == Level.FAULT) {
 						return (short) 200; // "FAULT"
 					}
-					return (short) 150; // "ON
+					return (short) 150; // "ON"
 				}) //
+
+				/*************
+				 * TMH-to-ESS
+				 * 
+				 * Implemented as "holding registers" with address offset 40000. See
+				 * https://en.wikipedia.org/wiki/Modbus#Modbus_object_types
+				 *************/
+
+				/*
+				 * Technical Unit Level Points
+				 */
+				.uint16Consumer(40000,
+						"System Status: The system state command from TMH to Technical Unit- reference table below",
+						(value) -> {
+							System.out.println("Trying to write [" + value + "] to System Status");
+						}) //
+
 				.build();
 	}
 

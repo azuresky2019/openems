@@ -84,7 +84,6 @@
 	bnd.identity;id='io.openems.edge.goodwe.et',\
 	bnd.identity;id='io.openems.edge.io.kmtronic',\
 	bnd.identity;id='io.openems.edge.io.wago',\
-	bnd.identity;id='io.openems.edge.kaco.blueplanet.hybrid10',\
 	bnd.identity;id='io.openems.edge.kostal.piko',\
 	bnd.identity;id='io.openems.edge.meter.abb',\
 	bnd.identity;id='io.openems.edge.meter.artemes.am2',\
@@ -195,7 +194,6 @@
 	io.openems.edge.io.api;version='[1.0.0,1.0.1)',\
 	io.openems.edge.io.kmtronic;version='[1.0.0,1.0.1)',\
 	io.openems.edge.io.wago;version='[1.0.0,1.0.1)',\
-	io.openems.edge.kaco.blueplanet.hybrid10;version='[1.0.0,1.0.1)',\
 	io.openems.edge.kostal.piko;version='[1.0.0,1.0.1)',\
 	io.openems.edge.meter.abb;version='[1.0.0,1.0.1)',\
 	io.openems.edge.meter.artemes.am2;version='[1.0.0,1.0.1)',\

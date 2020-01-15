@@ -24,6 +24,9 @@ public class ModbusSlaveDefinitionBuilder {
 	// next offset in the 30000 range
 	private int nextOffset30000 = 30_000;
 
+	// next offset in the 40000 range
+	private int nextOffset40000 = 40_000;
+
 	private ModbusSlaveDefinitionBuilder() {
 	}
 
@@ -38,12 +41,27 @@ public class ModbusSlaveDefinitionBuilder {
 	}
 
 	public ModbusSlaveDefinitionBuilder uint16Supplier(int offset, String name, OpenemsSupplier<Short> function) {
-		this.add(new ModbusRecordUint16ReadOnly(offset, name, function));
+		this.add(new ModbusRecordUint16Supplier(offset, name, function));
+		return this;
+	}
+
+	public ModbusSlaveDefinitionBuilder uint16Consumer(int offset, String name, OpenemsConsumer<Short> function) {
+		this.add(new ModbusRecordUint16Consumer(offset, name, function));
 		return this;
 	}
 
 	public ModbusSlaveDefinitionBuilder uint32(int offset, String name, int value) {
 		this.add(new ModbusRecordUint32(offset, name, value));
+		return this;
+	}
+
+	public ModbusSlaveDefinitionBuilder uint32Supplier(int offset, String name, OpenemsSupplier<Integer> function) {
+		this.add(new ModbusRecordUint32Supplier(offset, name, function));
+		return this;
+	}
+
+	public ModbusSlaveDefinitionBuilder uint32Consumer(int offset, String name, OpenemsConsumer<Integer> function) {
+		this.add(new ModbusRecordUint32Consumer(offset, name, function));
 		return this;
 	}
 
@@ -57,6 +75,16 @@ public class ModbusSlaveDefinitionBuilder {
 		return this;
 	}
 
+	public ModbusSlaveDefinitionBuilder float32Supplier(int offset, String name, OpenemsSupplier<Float> function) {
+		this.add(new ModbusRecordFloat32Supplier(offset, name, function));
+		return this;
+	}
+
+	public ModbusSlaveDefinitionBuilder float32Consumer(int offset, String name, OpenemsConsumer<Float> function) {
+		this.add(new ModbusRecordFloat32Consumer(offset, name, function));
+		return this;
+	}
+
 	public ModbusSlaveDefinitionBuilder float32Reserved(int offset) {
 		this.add(new ModbusRecordFloat32Reserved(offset));
 		return this;
@@ -64,6 +92,16 @@ public class ModbusSlaveDefinitionBuilder {
 
 	public ModbusSlaveDefinitionBuilder float64(int offset, String name, double value) {
 		this.add(new ModbusRecordFloat64(offset, name, value));
+		return this;
+	}
+
+	public ModbusSlaveDefinitionBuilder float64Supplier(int offset, String name, OpenemsSupplier<Double> function) {
+		this.add(new ModbusRecordFloat64Supplier(offset, name, function));
+		return this;
+	}
+
+	public ModbusSlaveDefinitionBuilder float64Consumer(int offset, String name, OpenemsConsumer<Double> function) {
+		this.add(new ModbusRecordFloat64Consumer(offset, name, function));
 		return this;
 	}
 
@@ -84,7 +122,10 @@ public class ModbusSlaveDefinitionBuilder {
 
 	private void add(ModbusRecord record) throws IllegalArgumentException {
 		Integer nextOffset = null;
-		if (record.getOffset() >= 30_000) {
+		if (record.getOffset() >= 40_000) {
+			nextOffset = this.nextOffset40000;
+			this.nextOffset40000 += record.getType().getWords();
+		} else if (record.getOffset() >= 30_000) {
 			nextOffset = this.nextOffset30000;
 			this.nextOffset30000 += record.getType().getWords();
 		}

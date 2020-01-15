@@ -22,6 +22,7 @@ public interface OpenemsSupplier<T> {
 	 * Gets a result.
 	 *
 	 * @return a result
+	 * @throws OpenemsNamedException on error
 	 */
 	T get() throws OpenemsNamedException;
 

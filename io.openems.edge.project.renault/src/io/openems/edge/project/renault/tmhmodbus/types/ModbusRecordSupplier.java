@@ -14,13 +14,19 @@ import io.openems.edge.common.modbusslave.ModbusRecordUint16;
 import io.openems.edge.common.modbusslave.ModbusRecordUint32;
 import io.openems.edge.common.modbusslave.ModbusType;
 
-public abstract class ModbusRecordReadOnly<T> extends ModbusRecord {
+/**
+ * Wraps a writable {@link ModbusRecord} with a {@link OpenemsSupplier}
+ * function.
+ *
+ * @param <T> the type of the function
+ */
+public abstract class ModbusRecordSupplier<T> extends ModbusRecord {
 
-	private final Logger log = LoggerFactory.getLogger(ModbusRecordReadOnly.class);
+	private final Logger log = LoggerFactory.getLogger(ModbusRecordSupplier.class);
 	private final String name;
 	private final OpenemsSupplier<T> function;
 
-	public ModbusRecordReadOnly(int offset, String name, ModbusType type, OpenemsSupplier<T> function) {
+	public ModbusRecordSupplier(int offset, String name, ModbusType type, OpenemsSupplier<T> function) {
 		super(offset, type);
 		this.name = name;
 		this.function = function;
