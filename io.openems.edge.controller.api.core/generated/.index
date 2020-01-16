@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<repository xmlns="http://www.osgi.org/xmlns/repository/v1.0.0" name="io.openems.edge.controller.api.core" increment="1579006827475">
+  <resource>
+    <capability namespace="osgi.identity">
+      <attribute name="osgi.identity" value="io.openems.edge.controller.api.core"/>
+      <attribute name="type" value="osgi.bundle"/>
+      <attribute name="version" value="0.0.0" type="Version"/>
+    </capability>
+    <capability namespace="osgi.wiring.bundle">
+      <attribute name="bundle-version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.bundle" value="io.openems.edge.controller.api.core"/>
+    </capability>
+    <capability namespace="osgi.wiring.host">
+      <attribute name="bundle-version" value="0.0.0" type="Version"/>
+      <attribute name="osgi.wiring.host" value="io.openems.edge.controller.api.core"/>
+    </capability>
+    <capability namespace="osgi.content">
+      <attribute name="size" value="24499" type="Long"/>
+      <attribute name="url" value="generated/io.openems.edge.controller.api.core.jar"/>
+      <attribute name="mime" value="application/vnd.osgi.bundle"/>
+      <attribute name="osgi.content" value="A25FF290A104003E6F1CCB18700D1474A782FE18AB379490DC77143A2CD1404F"/>
+    </capability>
+    <capability namespace="bndtools.workspace">
+      <attribute name="bndtools.workspace" value="file:/C:/Users/wolfgang.miethaner/git/renault_workspace"/>
+      <attribute name="project.path" value="/io.openems.edge.controller.api.core"/>
+    </capability>
+  </resource>
+</repository>

@@ -51,8 +51,8 @@ public enum RenaultZoeChannelId implements io.openems.edge.common.channel.Channe
 	END_OF_CHARGE_REQUEST(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
 	LBC_REFUSE_TO_SLEEP(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
 	ISOL_DIAG_AUTHORISATION(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
-	SAFETY_MODE_1_FLAG(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
-	START_STOP(Doc.of(StartStop.values()).accessMode(AccessMode.READ_WRITE)), //
+	SAFETY_MODE_1_FLAG(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //	
+	START_STOP(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_WRITE)), //
 	
 	
 	/*
