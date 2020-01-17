@@ -27,14 +27,15 @@ import io.openems.edge.bridge.modbus.api.AbstractOpenemsModbusComponent;
 import io.openems.edge.bridge.modbus.api.BridgeModbus;
 import io.openems.edge.bridge.modbus.api.ElementToChannelConverter;
 import io.openems.edge.bridge.modbus.api.ModbusProtocol;
+import io.openems.edge.bridge.modbus.api.element.SignedWordElement;
 import io.openems.edge.bridge.modbus.api.element.UnsignedDoublewordElement;
 import io.openems.edge.bridge.modbus.api.element.UnsignedWordElement;
 import io.openems.edge.bridge.modbus.api.task.FC16WriteRegistersTask;
 import io.openems.edge.bridge.modbus.api.task.FC3ReadRegistersTask;
 import io.openems.edge.common.channel.EnumReadChannel;
 import io.openems.edge.common.channel.EnumWriteChannel;
-import io.openems.edge.common.channel.IntegerReadChannel;
 import io.openems.edge.common.channel.IntegerWriteChannel;
+import io.openems.edge.common.channel.value.Value;
 import io.openems.edge.common.component.OpenemsComponent;
 import io.openems.edge.common.event.EdgeEventConstants;
 import io.openems.edge.common.modbusslave.ModbusSlave;
@@ -57,6 +58,8 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 	private final Logger log = LoggerFactory.getLogger(BatteryRenaultZoe.class);
 	private String modbusBridgeId;
 	private State state = State.UNDEFINED;
+
+	private Float hvCurrent;
 
 	// if configuring is needed this is used to go through the necessary steps
 	private Config config;
@@ -96,24 +99,18 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 		super.deactivate();
 	}
 
-
 	private void handleStateMachine() {
 		log.info("BatteryRenaultZoe.handleStateMachine(): State: " + this.getStateMachineState());
 		boolean readyForWorking = false;
-		
 
-		
-		
-		
-//		IntegerWriteChannel stChannel = this.channel(RenaultZoeChannelId.ST);
-//		
-//			try {
-//				stChannel.setNextWriteValue(this.config.StartStop());
-//			} catch (OpenemsNamedException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-			
+		IntegerWriteChannel stChannel = this.channel(RenaultZoeChannelId.START_STOP);
+
+		try {
+			stChannel.setNextWriteValue(this.config.StartStop());
+		} catch (OpenemsNamedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		switch (this.getStateMachineState()) {
 		case ERROR:
@@ -163,7 +160,7 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 				this.setStateMachineState(State.UNDEFINED);
 			} else {
 				this.setStateMachineState(State.RUNNING);
-				this.startSystem();
+//				this.startSystem();
 				readyForWorking = true;
 			}
 			break;
@@ -231,6 +228,11 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 
 	private boolean isError() {
 		boolean isErrorPresent = false;
+//		this.isFailure1();
+//		this.isFailure2();
+//		if (this.isFailure1() || this.isFailure2()) {
+//			isErrorPresent = true;
+//		} 
 
 		EnumReadChannel hvBatLevel2FailureChannel = this.channel(RenaultZoeChannelId.HV_BAT_LEVEL2_FAILURE);
 		HvBatLevel2Failure hvBatLevel2Failure = hvBatLevel2FailureChannel.value().asEnum();
@@ -249,7 +251,56 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 		case UNAVAILABLE_VALUE:
 			break;
 		}
+
 		return isErrorPresent;
+	}
+
+	private boolean isFailure1() {
+
+		boolean isFailure1Present = false;
+
+		EnumReadChannel hvBatLevel1FailureChannel = this.channel(RenaultZoeChannelId.HV_BAT_LEVEL1_FAILURE);
+		HvBatLevel2Failure hvBatLevel1Failure = hvBatLevel1FailureChannel.value().asEnum();
+
+		switch (hvBatLevel1Failure) {
+		case UNDEFINED:
+			break;
+		case NOT_USED:
+			break;
+		case NO_DEFAULT:
+			isFailure1Present = false;
+			break;
+		case FAILURE_LEVEL_2_DEFAULT:
+			isFailure1Present = true;
+			break;
+		case UNAVAILABLE_VALUE:
+			break;
+		}
+		return isFailure1Present;
+	}
+
+	private boolean isFailure2() {
+
+		boolean isFailure2Present = false;
+
+		EnumReadChannel hvBatLevel2FailureChannel = this.channel(RenaultZoeChannelId.HV_BAT_LEVEL1_FAILURE);
+		HvBatLevel2Failure hvBatLevel2Failure = hvBatLevel2FailureChannel.value().asEnum();
+
+		switch (hvBatLevel2Failure) {
+		case UNDEFINED:
+			break;
+		case NOT_USED:
+			break;
+		case NO_DEFAULT:
+			isFailure2Present = false;
+			break;
+		case FAILURE_LEVEL_2_DEFAULT:
+			isFailure2Present = true;
+			break;
+		case UNAVAILABLE_VALUE:
+			break;
+		}
+		return isFailure2Present;
 	}
 
 	private boolean isSystemRunning() {
@@ -259,11 +310,7 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 		} else {
 			return false;
 		}
-		
-//		EnumReadChannel strStChannel = this.channel(RenaultZoeChannelId.STR_ST);
-//		StringStatus stringState = strStChannel.value().asEnum();
-//		return stringState == StringStatus.ENABLE;
-		
+
 	}
 
 	private boolean isSystemStopped() {
@@ -278,17 +325,13 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 
 	private void startSystem() {
 		this.log.debug("Start system");
-
 		IntegerWriteChannel stChannel = this.channel(RenaultZoeChannelId.START_STOP);
-		
-			try {
-				stChannel.setNextWriteValue(this.config.StartStop());
-			} catch (OpenemsNamedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		
-		
+		try {
+			stChannel.setNextWriteValue(this.config.StartStop());
+		} catch (OpenemsNamedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -325,7 +368,7 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 	}
 
 	private void stopSystem() {
-		this.log.debug("Stop system");		
+		this.log.debug("Stop system");
 		EnumWriteChannel startStopChannel = this.channel(RenaultZoeChannelId.START_STOP);
 		try {
 			startStopChannel.setNextWriteValue(StartStop.STOP);
@@ -354,6 +397,22 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 //			}
 //			this.channel(Battery.ChannelId.SOC).setNextValue((int) (socOpt.get()));
 //		});
+		
+		this.channel(RenaultZoeChannelId.HV_BAT_INSTANT_CURRENTS).onChange((oldValue, newValue) -> {
+			@SuppressWarnings("unchecked")
+			Optional<Float> curOpt = (Optional<Float>) newValue.asOptional();
+			if (!curOpt.isPresent()) {
+				return;
+			}
+			
+			this.channel(RenaultZoeChannelId.HV_BAT_INSTANT_CURRENT).setNextValue((float)((-1)*((curOpt.get()*0.25) - 500)));
+			this.channel(Battery.ChannelId.CURRENT).setNextValue(((-1000)*((curOpt.get()*0.25) - 500)));
+			
+			
+		});
+		
+		
+		
 
 		this.channel(RenaultZoeChannelId.HV_NETWORK_VOLTAGE).onChange((oldValue, newValue) -> {
 			@SuppressWarnings("unchecked")
@@ -405,8 +464,7 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 								ElementToChannelConverter.SCALE_FACTOR_3), ////
 //						m(Battery.ChannelId.MAX_CELL_VOLTAGE, new UnsignedWordElement(0x68)), //
 //						m(Battery.ChannelId.MIN_CELL_VOLTAGE, new UnsignedWordElement(0x69)), //
-						m(Battery.ChannelId.CURRENT, new UnsignedWordElement(0x6A),
-								ElementToChannelConverter.SCALE_FACTOR_1), //
+						m(RenaultZoeChannelId.HV_BAT_INSTANT_CURRENTS, new SignedWordElement(0x6A)),
 
 						m(RenaultZoeChannelId.HV_NETWORK_VOLTAGE, new UnsignedWordElement(0x6B)), //
 
@@ -443,18 +501,16 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 						m(RenaultZoeChannelId.LBC_REFUSE_TO_SLEEP, new UnsignedWordElement(0x8A)), //
 						m(RenaultZoeChannelId.ISOL_DIAG_AUTHORISATION, new UnsignedWordElement(0x8B)), //
 						m(RenaultZoeChannelId.SAFETY_MODE_1_FLAG, new UnsignedWordElement(0x8C))), //
-					
 
-						new FC16WriteRegistersTask(0x8D, //
-								m(RenaultZoeChannelId.START_STOP, new UnsignedDoublewordElement(0x8D)) //
-								
-						)
-						
-						
+				new FC16WriteRegistersTask(0x8D, //
+						m(RenaultZoeChannelId.START_STOP, new UnsignedDoublewordElement(0x8D)) //
+
+				)
+
 //						new DummyRegisterElement(0x8D, 0x15F),
 //						m(RenaultZoeChannelId.STR_ST, new UnsignedWordElement(0x160), //
 //								ElementToChannelConverter.SCALE_FACTOR_MINUS_1)
-				)//
+		)//
 //
 //				new FC6WriteRegisterTask(0x161, //
 //						m(RenaultZoeChannelId.EN_STRING, new UnsignedWordElement(0x161)) //
@@ -576,12 +632,13 @@ public class BatteryRenaultZoe extends AbstractOpenemsModbusComponent
 				+ " | Max Charging Current: " + this.getChargeMaxCurrent().value() + " | Cell Highest Voltage: "
 				+ this.channel(RenaultZoeChannelId.CELL_HIGHEST_VOLTAGE).value() //
 				+ " | Cell Lowest Voltage: " + this.channel(RenaultZoeChannelId.CELL_LOWEST_VOLTAGE).value() //
-				+ " | Current: " + this.getCurrent().value() + " | Voltage: " + this.getVoltage().value()
+				+ " | HV Instant Cur: " + this.channel(RenaultZoeChannelId.HV_BAT_INSTANT_CURRENT).value()
+				+ " | Current: " + this.channel(Battery.ChannelId.CURRENT).value()
+				+ " | Voltage: " + this.getVoltage().value()
 				+ " | HV Battery Max Temp: " + this.channel(RenaultZoeChannelId.HV_BATTERY_MAX_TEMP).value() //
-				+ "| State: " + this.getStateMachineState() //				
-				;
-		
-		
+				+ "| State: " + this.getStateMachineState() //
+
+		;
 
 	}
 

@@ -17,7 +17,8 @@ public enum RenaultZoeChannelId implements io.openems.edge.common.channel.Channe
 	CHARGING_POWER(Doc.of(OpenemsType.INTEGER).unit(Unit.KILOWATT).accessMode(AccessMode.READ_ONLY)), //
 	CELL_HIGHEST_VOLTAGE(Doc.of(OpenemsType.INTEGER).unit(Unit.MILLIVOLT).accessMode(AccessMode.READ_ONLY)), //
 	CELL_LOWEST_VOLTAGE(Doc.of(OpenemsType.INTEGER).unit(Unit.MILLIVOLT).accessMode(AccessMode.READ_ONLY)), //
-	HV_BAT_INSTANT_CURRENT(Doc.of(OpenemsType.INTEGER).unit(Unit.AMPERE).accessMode(AccessMode.READ_ONLY)), //
+	HV_BAT_INSTANT_CURRENTS(Doc.of(OpenemsType.FLOAT).unit(Unit.AMPERE).accessMode(AccessMode.READ_ONLY)), //
+	HV_BAT_INSTANT_CURRENT(Doc.of(OpenemsType.FLOAT).unit(Unit.AMPERE).accessMode(AccessMode.READ_ONLY)), //
 	HV_NETWORK_VOLTAGE(Doc.of(OpenemsType.INTEGER).unit(Unit.VOLT).accessMode(AccessMode.READ_ONLY)), //
 	HV_BATTERY_MAX_TEMP(Doc.of(OpenemsType.INTEGER).unit(Unit.DEGREE_CELSIUS).accessMode(AccessMode.READ_ONLY)), //
 	HV_BAT_STATE(Doc.of(HvBatState.values())), //
@@ -36,7 +37,7 @@ public enum RenaultZoeChannelId implements io.openems.edge.common.channel.Channe
 	WAKE_UP_TYPE(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
 	LBCPRUN_KEY(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
 	OPERATING_TYPE(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
-	POWER_RELAY_STATE(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
+	POWER_RELAY_STATE(Doc.of(PowerRelayState.values())), //
 	DISTANCE_TOTALIZER_COPY(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
 	ABSOLUTE_TIME_SINCE_1RST_IGNITION(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
 	CELL_LOWEST_VOLTAGE_RCY(Doc.of(OpenemsType.INTEGER).unit(Unit.NONE).accessMode(AccessMode.READ_ONLY)), //
